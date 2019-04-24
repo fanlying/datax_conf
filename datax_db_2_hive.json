@@ -1,0 +1,56 @@
+{
+  "core": {
+    "transport": {
+      "channel": {
+        "speed": {
+          "record": -1,
+          "byte": -1
+        }
+      }
+    }
+  },
+  "job": {
+    "content": [
+      {
+        "reader": {
+          "name": "xxxxxx",
+          "parameter": {
+            "username": "xxxxxx",
+            "password": "xxxxxx",
+            "connection": [
+              {
+                "querySql": [
+                  "xxxxxx"
+                ],
+                "jdbcUrl": [
+                  "xxxxxx"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "hdfswriter",
+          "parameter": {
+            "defaultFS": "hdfs://hamaster:9000",
+            "fileType": "text",
+            "column": [
+              "xxxxxx"
+            ],
+            "path": "xxxxxx",
+            "fileName": "xxxxxx",
+            "fieldDelimiter": "\u0001",
+            "writeMode": "append"
+          }
+        }
+      }
+    ],
+    "setting": {
+      "speed": {
+        "channel": "5",
+        "byte": 1048576,
+        "record": 10000
+      }
+    }
+  }
+}

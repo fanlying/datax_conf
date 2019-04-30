@@ -28,8 +28,8 @@ class datax_db_2_hive(object):
         self.dbtype = datax_db_2_hive.conf_file.db_type[connect_id]
         self.prefix = datax_db_2_hive.conf_file.prefix[connect_id]
         self.path = datax_db_2_hive.conf_file.path[connect_id]
-        self.schema = schema
-        self.table = table
+        self.schema = schema.lower()
+        self.table = table.lower()
         
     def get_mysql_info(self, mysqlcharset='utf8'): 
         """

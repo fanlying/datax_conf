@@ -190,10 +190,10 @@ class datax_db_2_hive(object):
         if not os.path.exists(write_json_path):
             os.makedirs(write_json_path)
         write_path_json = write_json_path + '\\' + 'ods_' + self.prefix + '_' + self.table + '.json'
-        with open(write_json_path, "w") as f:    
+        with open(write_path_json, "w") as f:    
             f.write(jsObj)    
             f.close()
-        return print('已生成json文件：', write_json_path)
+        return print('已生成json文件：', write_path_json)
 
     def create_hive_table(self, ispartition = False):
         '''

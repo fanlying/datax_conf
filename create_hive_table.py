@@ -48,6 +48,12 @@ class datax_db_2_hive(object):
         try:
         #获取一个游标
             with connection.cursor(cursor=pymysql.cursors.DictCursor) as cursor:
+                # 打印表数据量
+                cnt_sql = 'select count(1) from {0}'.format(self.table)
+                cursor.execute(cnt_sql) 
+                tablecnt = cursor.fetchone()
+                print('{0}数据量为：{1}'.format(self.table, tablecnt))
+                # 取表字段信息
                 sql='SHOW FULL FIELDS FROM  {0}'.format(self.table)
                 cnt=cursor.execute(sql) #返回记录条数
                 try:
@@ -77,6 +83,7 @@ class datax_db_2_hive(object):
                 except Exception as e:
                     print('程序异常!')  
                     raise e
+                # 取表注释
                 comment_sql = "SELECT t2.TABLE_COMMENT FROM information_schema.TABLES t2 WHERE t2.table_schema = lower('{0}') and t2.table_name = lower('{1}')".format(self.db,self.table)
                 cursor.execute(comment_sql) 
                 tablecomment = cursor.fetchone()['TABLE_COMMENT']
@@ -105,6 +112,12 @@ class datax_db_2_hive(object):
         try:
         #获取一个游标
             with connection.cursor() as cursor:
+                # 打印表数据量
+                cnt_sql = 'select count(1) from {0}'.format(self.table)
+                cursor.execute(cnt_sql) 
+                tablecnt = cursor.fetchone()
+                print('{0}数据量为：{1}'.format(self.table, tablecnt))
+                # 取表字段信息
                 sql="select T.COLUMN_NAME,T.COMMENTS,C.DATA_TYPE,C.DATA_PRECISION,C.DATA_SCALE from all_COL_COMMENTS t, all_TAB_COLUMNS c where c.column_name = t.column_name and c.owner = t.owner and c.TABLE_NAME = t.TABLE_NAME and c.owner = upper('{0}') and c.TABLE_NAME = upper('{1}') order by c.COLUMN_ID".format(self.schema, self.table)
                 cursor.execute(sql)
                 try:
@@ -139,6 +152,7 @@ class datax_db_2_hive(object):
                 except Exception as e:
                     print('程序异常!')  
                     raise e
+                # 取表注释
                 comment_sql = "select t.comments from all_tab_comments t where owner = upper('{0}') and table_name = upper('{1}')".format(self.schema,self.table)
                 cursor.execute(comment_sql) 
                 tablecomment = cursor.fetchone()
